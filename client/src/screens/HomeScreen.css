@@ -1,0 +1,100 @@
+
+
+/* .cardhome {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cardhome:hover {
+    transform: scale(1.01);
+  } */
+
+  .mainSection {
+    margin-bottom: 300px;
+  }
+
+  .imageSlider{
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+  }
+
+  .slider{
+    height: 500px;
+  }
+
+  .filter{
+    position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 60%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white; /* Customize text color */
+  z-index: 999;
+  }
+
+  .searchFilter {
+  
+    margin-top: 0px !important;
+    border-radius: 5px !important;
+    padding: 20px !important;
+    color: rgba(255, 255, 255, 0.741);
+    background-color: #000000;
+    /* box-shadow: rgba(203, 203, 203, 0.686) 0px 5px 15px; */
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cardhome {
+    width: 800px;
+    min-width: 700px;
+
+    margin: 0 10px 10px;
+    /* background-color: #e3ffa6 !important; */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .cardhome:hover {
+    transform: translateY(-5px);
+  }
+  
+  .cardhome .room-image {
+    width: 100%;
+    height: 250px; /* Adjust the height as needed */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .cardhome .room-details {
+    padding: 20px;
+  }
+  
+  .cardhome .room-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .cardhome .room-description {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .cardhome .room-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 10px;
+  }
+  
+  .cardsOnly {
+    
+  }

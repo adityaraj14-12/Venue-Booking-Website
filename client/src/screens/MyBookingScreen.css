@@ -1,0 +1,48 @@
+/* MyBookingScreen.css */
+
+.my-booking-container {
+  padding: 20px;
+}
+
+.booking-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.booking-card {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.booking-card h1 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.booking-card p {
+  margin-bottom: 8px;
+}
+
+.booking-card p b {
+  font-weight: bold;
+}
+
+.cancel-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}

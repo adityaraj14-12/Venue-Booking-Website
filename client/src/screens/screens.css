@@ -1,0 +1,10 @@
+body{
+    background-image: url('../desktop-wallpaper-1st-day-of-summer-holiday-day-of-the-dead-and-day-of-the-dead-skull.jpg');
+    background-size: cover;
+    background-size: cover;
+    background-position: center center;
+
+    background-attachment: fixed;
+    /* background: url(background-photo.jpg) center center cover no-repeat fixed; */
+
+}

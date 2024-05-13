@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+.screen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+  }
+  
+  .booking-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: rgba(220, 220, 255, 0.878);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 245, 245, 0.168); /* Soft shadow */
+  }
+
+  .roomName {
+    font-family: Poppins;
+    color: rgb(255, 221, 99);
+    font-size: 150px;
+  }
+
+  .roomLine {
+    border-color: #0056b3;
+    border-style:dotted;
+    text-align: left;
+  }
+  
+  .room-details,
+  .payment-details {
+    padding: 20px;
+  }
+  
+  .room-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .booking-info h2,
+  .payment-details h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .booking-info p,
+  .payment-details p {
+    margin-bottom: 5px;
+  }
+  
+  .stripe-button {
+    margin-top: 20px;
+  }
+  
+  .payButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 60%;
+    transition: background-color 0.3s ease;
+  }
+
+
+  .btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .amtMain {
+    display: flex;
+  }
+  
+  .subAmt2 {
+    margin-left: 50%;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+  
+  .makeLine {
+    width: 300%;
+  }
+  
+  .home-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Blue */
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  

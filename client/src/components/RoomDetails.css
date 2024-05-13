@@ -1,0 +1,159 @@
+
+
+.room-details-container {
+  padding: 20px;
+  background-color: #FFA07A;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.room-name {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.room-description {
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.details-heading {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.details-container {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #FFA07A;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.amenities-list, .features-list, .other-list {
+  columns: 2;
+  column-gap: 20px;
+  color: #333;
+}
+
+.add-ons {
+  font-size: 16px;
+  color: #333;
+  margin-top: 20px;
+}
+
+.operating-hours-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #FFA07A;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #FFA07A;
+  color: #fff;
+}
+
+.reviews {
+  padding: 20px;
+  border: 1px solid #FFA07A;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.review {
+  padding: 10px;
+  border-bottom: 1px solid #FFA07A;
+}
+
+.review:last-child {
+  border-bottom: none;
+}
+/* RoomDetails.css */
+
+.room-details-container {
+  padding: 20px;
+}
+
+.room-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.reviews {
+  margin-top: 20px;
+}
+
+.reviews div {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.reviews div p {
+  margin: 5px 0;
+}
+
+.amenities-list,
+.features-list,
+.other-list {
+  list-style: none;
+  padding: 0;
+}
+
+.add-ons {
+  font-style: italic;
+}
+
+/* Responsive styles */
+
+@media (max-width: 768px) {
+  .image-column {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .image-column {
+    margin-bottom: 0;
+  }
+}
+
+/* Additional styles for room details section */
+
+.room-details-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.room-details-container p {
+  margin-bottom: 10px;
+}
+
+.room-details-container h2 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.room-details-container ul {
+  margin-bottom: 20px;
+}
+
+.room-details-container ul li {
+  margin-bottom: 5px;
+}
