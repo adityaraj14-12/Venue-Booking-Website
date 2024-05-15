@@ -21,19 +21,19 @@ export default function Room({ room, fromDate, toDate }) {
         <div style={{ float: "right" }}>
           {fromDate && toDate && (
             <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-            <button className="btn btn-primary mb-2">Book Now</button>
-          </Link>          
+              <button className="btn btn-primary mb-2">Book Now</button>
+            </Link>
           )}
           <Button variant="primary" onClick={() => setShow(true)}>
             View Detail
           </Button>
         </div>
       </div>
-      <Modal show={show} onHide={() => setShow(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>{room.name}</Modal.Title>
+      <Modal show={show} onHide={() => setShow(false)} size="lg" className="custom-modal">
+        <Modal.Header closeButton className="custom-header">
+          <Modal.Title className="custom-title">{room.name}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="custom-body">
           <Carousel prevLabel="" nextLabel="">
             {room.imageurls.map((url, index) => (
               <Carousel.Item key={index}>
@@ -47,12 +47,12 @@ export default function Room({ room, fromDate, toDate }) {
           </Carousel>
           <p className="custom-description">{room.description}</p>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="custom-footer">
           <Button variant="secondary" onClick={() => setShow(false)}>
             Close
           </Button>
           <Link to={{ pathname: `/room/${room._id}`, state: { room } }}>
-            <Button variant="secondary">More Details</Button>
+            <Button variant="secondary" className="custom-button">More Details</Button>
           </Link>
         </Modal.Footer>
       </Modal>

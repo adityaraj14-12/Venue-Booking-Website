@@ -21,7 +21,10 @@ function Bookingscreen({ match }) {
     history.push("/home");
   };
 
-  const { roomid, fromdate, todate } = match.params;
+  const roomid = match.params.roomid;
+  const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
+  const todate = moment(match.params.todate, "DD-MM-YYYY");
+
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -33,10 +36,12 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
-    const totaldays = moment.duration(moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"))).asDays() + 1;
-    setTotalDays(totaldays);
-    setTotalAmount(totaldays * room.rentperday);
-  }, [room]);
+    if (room.rentperday) {
+      const totaldays = moment.duration(moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"))).asDays() + 1;
+      setTotalDays(totaldays);
+      setTotalAmount(totaldays * room.rentperday);
+    }
+  }, [room, fromdate, todate]);
 
   const fetchRoom = async () => {
     try {
@@ -90,8 +95,8 @@ function Bookingscreen({ match }) {
             <div className="booking-info">
               <h2>Booking Details</h2>
               <p><strong>Name:</strong> {JSON.parse(localStorage.getItem("currentUser")).name}</p>
-              <p><strong>From Date:</strong> {fromdate}</p>
-              <p><strong>To Date:</strong> {todate}</p>
+              <p><strong>From Date:</strong> {match.params.fromdate}</p>
+              <p><strong>To Date:</strong> {match.params.todate}</p>
               <p><strong>Max Count:</strong> {room.maxcount}</p>
             </div>
           </div>
@@ -107,12 +112,12 @@ function Bookingscreen({ match }) {
                 <hr className="makeLine" />
               </div>
               <div className="subAmt2">
-              <p>{totalDays}</p>
-              <hr />
-              <p>{room.rentperday}</p>
-              <hr />
-              <p>{totalAmount}</p>
-              <hr />
+                <p>{totalDays}</p>
+                <hr />
+                <p>{room.rentperday}</p>
+                <hr />
+                <p>{totalAmount}</p>
+                <hr />
               </div>
             </div>
             <StripeCheckout

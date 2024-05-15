@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "antd/dist/antd.css";
@@ -19,7 +18,7 @@ import 'slick-carousel/slick/slick.css'; // Import slick carousel CSS
 import 'slick-carousel/slick/slick-theme.css';
 import { bg1, bg2, bg3, bg4, bg5 } from "../assests";
 
-// ..
+// Initialize AOS
 AOS.init({
   duration: 1000,
 });
@@ -31,8 +30,8 @@ function Homescreen() {
   const [error, setError] = useState("");
   const [rooms, setRooms] = useState([]);
 
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
   const [duplicateRooms, setDuplicateRooms] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [type, setType] = useState("all");
@@ -43,7 +42,6 @@ function Homescreen() {
         setError("");
         setLoading(true);
         const data = (await axios.get("/api/rooms/getallrooms")).data;
-        //console.log(data);
         setRooms(data);
         setDuplicateRooms(data);
       } catch (error) {
@@ -56,67 +54,72 @@ function Homescreen() {
     fetchMyAPI();
   }, []);
 
+  useEffect(() => {
+    applyFilters();
+  }, [fromDate, toDate, searchKey, type]);
+
   function filterByDate(dates) {
-    // console.log(moment(dates[0]).format("DD-MM-YYYY"));
-    // console.log(moment(dates[1]).format("DD-MM-YYYY"));
     try {
-      setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-      setToDate(moment(dates[1]).format("DD-MM-YYYY"));
-
-      var tempRooms = [];
-      for (const room of duplicateRooms) {
-        var availability = false;
-        if (room.currentbookings.length > 0) {
-          for (const booking of room.currentbookings) {
-            if (
-              !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
-                booking.fromdate,
-                booking.todate
-              ) &&
-              !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
-                booking.fromdate,
-                booking.todate
-              )
-            ) {
-              if (
-                moment(dates[0]).format("DD-MM-YYYY") !== booking.fromdate &&
-                moment(dates[0]).format("DD-MM-YYYY") !== booking.todate &&
-                moment(dates[1]).format("DD-MM-YYYY") !== booking.fromdate &&
-                moment(dates[1]).format("DD-MM-YYYY") !== booking.todate
-              ) {
-                availability = true;
-              }
-            }
-          }
-        }
-        //
-        if (availability == true || room.currentbookings.length == 0) {
-          tempRooms.push(room);
-        }
-      }
-      setRooms(tempRooms);
-    } catch (error) { }
-  }
-
-  function filterBySearch() {
-    const tempRooms = duplicateRooms.filter((x) =>
-      x.name.toLowerCase().includes(searchKey.toLowerCase())
-    );
-    setRooms(tempRooms);
-  }
-  function filterByType(type) {
-    setType(type);
-    console.log(type);
-    if (type !== "all") {
-      const tempRooms = duplicateRooms.filter(
-        (x) => x.type.toLowerCase() == type.toLowerCase()
-      );
-      setRooms(tempRooms);
-    } else {
-      setRooms(duplicateRooms);
+      const formattedFromDate = dates[0] ? moment(dates[0]).format("DD-MM-YYYY") : null;
+      const formattedToDate = dates[1] ? moment(dates[1]).format("DD-MM-YYYY") : null;
+      setFromDate(formattedFromDate);
+      setToDate(formattedToDate);
+    } catch (error) {
+      console.log(error);
     }
   }
 
+  function applyFilters() {
+    let tempRooms = [...duplicateRooms];
+
+    // Filter by date
+    if (fromDate && toDate) {
+      tempRooms = tempRooms.filter(room => {
+        let isAvailable = true;
+        for (const booking of room.currentbookings) {
+          const bookingFromDate = moment(booking.fromdate, "DD-MM-YYYY");
+          const bookingToDate = moment(booking.todate, "DD-MM-YYYY");
+          const selectedFromDate = moment(fromDate, "DD-MM-YYYY");
+          const selectedToDate = moment(toDate, "DD-MM-YYYY");
+
+          if (
+            (selectedFromDate.isBetween(bookingFromDate, bookingToDate, undefined, '[]') || 
+            selectedToDate.isBetween(bookingFromDate, bookingToDate, undefined, '[]')) || 
+            (bookingFromDate.isBetween(selectedFromDate, selectedToDate, undefined, '[]') || 
+            bookingToDate.isBetween(selectedFromDate, selectedToDate, undefined, '[]'))
+          ) {
+            isAvailable = false;
+            break;
+          }
+        }
+        return isAvailable;
+      });
+    }
+
+    // Filter by search key
+    if (searchKey) {
+      tempRooms = tempRooms.filter(room =>
+        room.name.toLowerCase().includes(searchKey.toLowerCase())
+      );
+    }
+
+    // Filter by type
+    if (type !== "all") {
+      tempRooms = tempRooms.filter(room =>
+        room.type.toLowerCase() === type.toLowerCase()
+      );
+    }
+
+    setRooms(tempRooms);
+  }
+
+  function handleSearchKeyChange(e) {
+    setSearchKey(e.target.value);
+  }
+
+  function handleTypeChange(e) {
+    setType(e.target.value);
+  }
 
   const settings = {
     dots: true,
@@ -130,10 +133,9 @@ function Homescreen() {
 
   return (
     <div className="mainSection">
-
       <section className="homeSection">
         <div className="slider">
-          <Slider {...settings} >
+          <Slider {...settings}>
             <div>
               <img className="imageSlider" src={bg1} alt="" />
             </div>
@@ -162,25 +164,22 @@ function Homescreen() {
                 className="form-control"
                 placeholder="Search rooms"
                 value={searchKey}
-                onChange={(e) => {
-                  setSearchKey(e.target.value);
-                }}
-                onKeyUp={filterBySearch}
+                onChange={handleSearchKeyChange}
+                onKeyUp={applyFilters}
               />
             </div>
             <div className="col-md-3">
               <select
                 className="form-control"
                 value={type}
-                onChange={(e) => {
-                  filterByType(e.target.value);
-                }}
+                onChange={handleTypeChange}
               >
-                {/* Your select options */}
                 <option value="all">All</option>
                 <option value="Wedding">Wedding</option>
                 <option value="Parties">Parties</option>
                 <option value="Open Mic">Open Mic</option>
+             
+
                 <option value="Conference">Conference</option>
                 <option value="Club house">Club house</option>
                 <option value="Reception">Reception</option>
