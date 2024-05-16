@@ -1,159 +1,188 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
 
 .room-details-container {
-  padding: 20px;
-  background-color: #FFA07A;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
+  padding: 40px 20px;
+  background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+  min-height: 100vh;
 }
 
-.room-name {
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.room-description {
-  font-weight: bold;
+h1, h2, h3 {
+  color: #2c3e50;
   margin-bottom: 20px;
-  color: #fff;
+  text-align: center;
 }
 
-.details-heading {
-  font-weight: bold;
-  font-size: 24px;
+h1 {
+  font-size: 2.5em;
+  color: #3498db; /* Bright blue */
+}
+
+h2 {
+  font-size: 2em;
+  color: #e74c3c; /* Bright red */
+}
+
+h3 {
+  font-size: 1.5em;
+  color: #8e44ad; /* Bright purple */
+}
+
+p, ul, li {
+  font-size: 1em;
   margin-bottom: 10px;
-  color: #fff;
+  color: #555;
 }
 
-.details-container {
-  background-color: #fff;
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  list-style-type: disc;
+}
+
+.container {
+  background: white;
   padding: 20px;
-  border: 1px solid #FFA07A;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
-.amenities-list, .features-list, .other-list {
-  columns: 2;
-  column-gap: 20px;
-  color: #333;
+.image-column {
+  margin-bottom: 20px;
+}
+
+.room-image {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.room-image:hover {
+  transform: scale(1.05);
+}
+
+.amenities-list, .features-list, .other-list, .enhanced-cleaning-list, .host-requirements-list, .provided-equipment-list {
+  margin-bottom: 20px;
 }
 
 .add-ons {
-  font-size: 16px;
-  color: #333;
+  font-weight: bold;
   margin-top: 20px;
+  color: #e74c3c;
 }
 
 .operating-hours-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
+  text-align: center;
 }
 
-th, td {
-  border: 1px solid #FFA07A;
+.operating-hours-table td {
   padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #FFA07A;
-  color: #fff;
-}
-
-.reviews {
-  padding: 20px;
-  border: 1px solid #FFA07A;
-  border-radius: 10px;
-  background-color: #fff;
-}
-
-.review {
-  padding: 10px;
-  border-bottom: 1px solid #FFA07A;
-}
-
-.review:last-child {
-  border-bottom: none;
-}
-/* RoomDetails.css */
-
-.room-details-container {
-  padding: 20px;
-}
-
-.room-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 .reviews {
   margin-top: 20px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .reviews div {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.reviews div p {
-  margin: 5px 0;
+.reviews p {
+  margin-bottom: 5px;
 }
 
-.amenities-list,
-.features-list,
-.other-list {
-  list-style: none;
-  padding: 0;
+.review-rating {
+  color: #f39c12; /* Bright yellow for ratings */
+  font-weight: bold;
 }
 
-.add-ons {
+.review-text {
   font-style: italic;
 }
+.filter-buttons {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
 
-/* Responsive styles */
+.filter-buttons .btn {
+  margin-right: 5px;
+}
+
+.review-item {
+  margin-bottom: 20px;
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+}
+
+.review-text {
+  margin-top: 5px;
+}
+
 
 @media (max-width: 768px) {
-  .image-column {
-    margin-bottom: 20px;
+  .room-details-container {
+    padding: 20px 10px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.2em;
   }
 }
-
-@media (min-width: 768px) {
-  .image-column {
-    margin-bottom: 0;
-  }
-}
-
-/* Additional styles for room details section */
-
-.room-details-container h1 {
-  font-size: 24px;
+.filter-buttons {
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
-.room-details-container p {
-  margin-bottom: 10px;
+.filter-buttons .btn {
+  margin-right: 5px;
 }
 
-.room-details-container h2 {
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.room-details-container ul {
+.review-item {
   margin-bottom: 20px;
 }
 
-.room-details-container ul li {
-  margin-bottom: 5px;
+.review-rating {
+  display: flex;
+  align-items: center;
+}
+
+.review-text {
+  margin-top: 5px;
 }

@@ -7,7 +7,6 @@ function Navbar() {
     localStorage.removeItem("currentUser");
     window.location.href = "/login";
   }
-
   const navAction = () => {
     if (user) {
       return (
@@ -32,6 +31,9 @@ function Navbar() {
               <a className="dropdown-item" href="#" onClick={Logout}>
                 Logout
               </a>
+              <a className="dropdown-item" href="/contact">
+                Contact Us
+              </a>
             </div>
           </div>
         </ul>
@@ -50,6 +52,7 @@ function Navbar() {
             Sign-In
           </a>
         </li>
+     
       </ul>
     );
   };

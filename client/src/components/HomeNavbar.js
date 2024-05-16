@@ -63,93 +63,16 @@ function HomeNavbar() {
       
       <div className="collapse navbar-collapse pr-5" id="navbarSupportedContent">
         <ul className="navbar-nav p-2 ml-auto">
-          <li className="nav-item mr-2 dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownActivities"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Activities
+          
+          
+          <li className="nav-item mr-2">
+            <a className="nav-link" href="/about">
+              About
             </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownActivities"
-            >
-              <a className="dropdown-item" href="#">
-                Birthday Party
-              </a>
-              <a className="dropdown-item" href="#">
-                Wedding
-              </a>
-              <a className="dropdown-item" href="#">
-                Standup
-              </a>
-              <a className="dropdown-item" href="#">
-                Conference
-              </a>
-            </div>
-          </li>
-          <li className="nav-item mr-2 dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownLocation"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Location
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownLocation"
-            >
-              <a className="dropdown-item" href="#">
-                Phagwara
-              </a>
-              <a className="dropdown-item" href="#">
-                Jalandhar
-              </a>
-            </div>
-          </li>
-          <li className="nav-item mr-2 dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownCapacity"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Capacity
-            </a>
-            <div
-              className="dropdown-menu"
-              aria-labelledby="navbarDropdownCapacity"
-            >
-              <a className="dropdown-item" href="#">
-                Upto 20
-              </a>
-              <a className="dropdown-item" href="#">
-                Upto 50
-              </a>
-              <a className="dropdown-item" href="#">
-                Upto 100
-              </a>
-              <a className="dropdown-item" href="#">
-                Upto 200
-              </a>
-            </div>
           </li>
           <li className="nav-item mr-2">
-            <a className="nav-link" href="#">
-              About
+            <a className="nav-link" href="/contact">
+              Contact Us
             </a>
           </li>
           {/* Conditional rendering of Login and Signup links based on user presence */}

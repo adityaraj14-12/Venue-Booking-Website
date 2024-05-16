@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import "./LoginScreen.css"; // Import CSS file for custom styling
+import "./LoginScreen.css";
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ function LoginScreen() {
       window.location.href = "/home";
     } catch (error) {
       console.error(error);
-      setError("Invalid credentials. Please try again.");
+      setError("Invalid credentials or email not verified. Please try again.");
     }
     setLoading(false);
   }

@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
 import "./RoomDetails.css"; // Import the CSS file for styling
+import { FaStar } from 'react-icons/fa'; // Import the star icon from react-icons/fa
+
+const StarRating = ({ rating }) => {
+  const stars = Array.from({ length: 5 }, (_, index) => (
+    <FaStar key={index} color={index < rating ? "#ffc107" : "#e4e5e9"} />
+  ));
+
+  return <>{stars}</>;
+};
 
 export default function RoomDetails(props) {
   const { room } = props.location.state;
   const [reviews, setReviews] = useState([]);
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [sortOrder, setSortOrder] = useState("default");
+  const [filterRating, setFilterRating] = useState(0);
 
   useEffect(() => {
-    // Fetch reviews based on the room ID
     const fetchReviews = async () => {
       try {
         const response = await fetch(`/api/reviews/${room._id}/user`);
         const data = await response.json();
         setReviews(data);
+        setFilteredReviews(data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -20,6 +32,37 @@ export default function RoomDetails(props) {
 
     fetchReviews();
   }, [room._id]);
+
+  useEffect(() => {
+    let filtered = reviews;
+    if (filterRating > 0) {
+      filtered = reviews.filter(review => review.rating === filterRating);
+    }
+    setFilteredReviews(filtered);
+  }, [filterRating, reviews]);
+
+  const handleSort = (order) => {
+    const sorted = [...filteredReviews].sort((a, b) => {
+      if (order === "asc") {
+        return a.rating - b.rating;
+      } else if (order === "desc") {
+        return b.rating - a.rating;
+      } else {
+        return 0;
+      }
+    });
+    setFilteredReviews(sorted);
+    setSortOrder(order);
+  };
+
+  const handleFilter = (rating) => {
+    setFilterRating(rating);
+  };
+
+  const averageRating = reviews.length
+    ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)
+    : 0;
+
   return (
     <div className="room-details-container">
       <Container>
@@ -39,21 +82,24 @@ export default function RoomDetails(props) {
             </Col>
           ))}
         </Row>
-        {/* Static details */}
-        <Row>
-       
-        {/* Static details */}
         <Row>
           <Col>
             <h2>Parking Options</h2>
             <p>Free street parking, Valet</p>
             <h2>Parking Description</h2>
             <p>
-              While street parking IS on our street and nearby blocks, it's hard to get a spot right by the door. There are several valet garages within easy walking distance to the space.
+              While street parking IS on our street and nearby blocks, it's hard
+              to get a spot right by the door. There are several valet garages
+              within easy walking distance to the space.
             </p>
             <h2>General Rules</h2>
             <ul>
-              <li>Rental hours are billed from beginning of set up, to end of clean up - this means that the time you book is the time that you have. We often have multiple bookings in a row, so we cannot accommodate surprise early in times or extra load out times.</li>
+              <li>
+                Rental hours are billed from beginning of set up, to end of
+                clean up - this means that the time you book is the time that
+                you have. We often have multiple bookings in a row, so we cannot
+                accommodate surprise early in times or extra load out times.
+              </li>
               <li>Please do not bring in your own sound systems. We're not that kind of space.</li>
               <li>Alcohol can be served, but not sold.</li>
               <li>We do not have a kitchen, but catered events are welcome! Let us know if you'd like nearby recommendations.</li>
@@ -62,7 +108,6 @@ export default function RoomDetails(props) {
               <li>Please leave the space how you found it.</li>
             </ul>
           </Col>
-        </Row>
           <Col>
             <h2>Included in your Booking</h2>
             <h3>Amenities</h3>
@@ -148,12 +193,34 @@ export default function RoomDetails(props) {
         <Row>
           <Col>
             <h2>Reviews</h2>
+            <p>Average Rating: {averageRating}</p>
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Sort Reviews
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => handleSort("default")}>Default</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleSort("asc")}>Lowest to Highest</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleSort("desc")}>Highest to Lowest</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <div className="filter-buttons">
+              <Button variant="outline-primary" onClick={() => handleFilter(0)}>All</Button>
+              <Button variant="outline-primary" onClick={() => handleFilter(5)}>5 Stars</Button>
+              <Button variant="outline-primary" onClick={() => handleFilter(4)}>4 Stars</Button>
+              <Button variant="outline-primary" onClick={() => handleFilter(3)}>3 Stars</Button>
+              <Button variant="outline-primary" onClick={() => handleFilter(2)}>2 Stars</Button>
+              <Button variant="outline-primary" onClick={() => handleFilter(1)}>1 Star</Button>
+            </div>
             <div className="reviews">
-              {reviews.length > 0 ? (
-                reviews.map((review, index) => (
-                  <div key={index}>
-                    <p>Rating: {review.rating}</p>
-                    <p>Review: {review.review}</p>
+              {filteredReviews.length > 0 ? (
+                filteredReviews.map((review, index) => (
+                  <div key={index} className="review-item">
+                    <p className="review-rating">
+                      {/* Render star ratings */}
+                      <StarRating rating={review.rating} />
+                    </p>
+                    <p className="review-text">Review: {review.review}</p>
                     {/* Assuming user details are included in the review object */}
                     {/* <p>User: {review.user}</p> */}
                   </div>
