@@ -1,12 +1,12 @@
 
 
-/* .cardhome {
+.cardhome {
     transition: transform 0.3s ease-in-out;
   }
   
   .cardhome:hover {
     transform: scale(1.01);
-  } */
+  }
 
   .mainSection {
     margin-bottom: 300px;

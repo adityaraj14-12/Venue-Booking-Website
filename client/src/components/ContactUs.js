@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ContactUs.css';
+import Navbar from './Navbar'; // Import Navbar component
+
 
 const ContactUs = () => {
   const [message, setMessage] = useState('');
@@ -26,11 +28,14 @@ const ContactUs = () => {
   };
 
   return (
+    <>
+     <Navbar /> {/* Include Navbar here */}
+
     <div className="contact-container">
       <div className="contact-left">
         <h1>Eventure</h1>
         <p>Venue Booking Website</p>
-        <p>Helpline number: 18001141300</p>
+        <p>Helpline number: 1800-114-130</p>
         <div className="map-container">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3410.893577855998!2d75.6977725753946!3d31.251369274338188!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5f007abb8e57%3A0x70b5a8308274c82f!2sLPU%20BH1!5e0!3m2!1sen!2sin!4v1715840579013!5m2!1sen!2sin"
@@ -57,6 +62,7 @@ const ContactUs = () => {
         {feedback && <p className="feedback">{feedback}</p>}
       </div>
     </div>
+    </>
   );
 };
 

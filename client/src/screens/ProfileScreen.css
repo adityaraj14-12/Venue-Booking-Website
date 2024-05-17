@@ -1,22 +1,26 @@
 /* ProfileScreen.css */
 
 .profile-container {
-    padding: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
   
   .profile-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    flex-direction: column;
   }
-  
   .profile-info {
-    width: 400px;
-    padding: 20px;
-    border-radius: 8px;
     background-color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    max-width: 400px;
   }
   
   .profile-info h2 {

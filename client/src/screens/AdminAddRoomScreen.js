@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Input, InputNumber, Button, Select } from "antd";
 
 import Swal from "sweetalert2";
-
+import "./adminaddroomscren.css"
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 const layout = {

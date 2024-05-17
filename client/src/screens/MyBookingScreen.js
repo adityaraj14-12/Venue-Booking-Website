@@ -13,10 +13,12 @@ function MyBookingScreen() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedRoomId, setSelectedRoomId] = useState(null); // State to store the selected room ID for review
-  const [rating, setRating] = useState(0); // State to store the rating
-  const [reviewText, setReviewText] = useState(""); // State to store the review text
-  const [modalVisible, setModalVisible] = useState(false); // State to control the visibility of the modal
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [existingReviewId, setExistingReviewId] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -69,16 +71,30 @@ function MyBookingScreen() {
   // Function to handle review submission
   const handleReviewSubmission = async () => {
     try {
-      // Send review data to the backend
-      const response = await axios.post("/api/reviews/add", {
-        roomId: selectedRoomId,
-        rating: rating,
-        review: reviewText
-      });
-      console.log("Review submission response:", response.data);
+      if (existingReviewId) {
+        // Update existing review
+        const response = await axios.post("/api/reviews/update", {
+          reviewId: existingReviewId,
+          rating: rating,
+          review: reviewText
+        });
+        console.log("Review update response:", response.data);
+      } else {
+        // Add new review
+        const response = await axios.post("/api/reviews/add", {
+          roomId: selectedRoomId,
+          userId: user._id,
+          bookingId: selectedBookingId,
+          rating: rating,
+          review: reviewText
+        });
+        console.log("Review submission response:", response.data);
+      }
+
       // Reset the rating and review text
       setRating(0);
       setReviewText("");
+      setExistingReviewId(null);
       // Close the modal
       setModalVisible(false);
       // Provide feedback to the user
@@ -89,6 +105,31 @@ function MyBookingScreen() {
       console.error("Error submitting review:", error);
       Swal.fire("Error", "Failed to submit review", "error");
     }
+  };
+
+  const openReviewModal = async (booking) => {
+    setSelectedRoomId(booking.roomid);
+    setSelectedBookingId(booking._id);
+
+    try {
+      const response = await axios.post("/api/reviews/getbybookinganduser", {
+        bookingId: booking._id,
+        userId: user._id,
+      });
+      if (response.data) {
+        setRating(response.data.rating);
+        setReviewText(response.data.review);
+        setExistingReviewId(response.data._id);
+      } else {
+        setRating(0);
+        setReviewText("");
+        setExistingReviewId(null);
+      }
+    } catch (error) {
+      console.error("Error fetching review:", error);
+    }
+
+    setModalVisible(true);
   };
 
   return (
@@ -122,23 +163,23 @@ function MyBookingScreen() {
                       Cancel Booking
                     </button>
                   )}
-                  <button
-                    className="review-btn"
-                    onClick={() => {
-                      setSelectedRoomId(booking.roomid);
-                      setModalVisible(true);
-                    }}
-                  >
-                    Add Review
-                  </button>
+                  {booking.status === "booked" && (
+                    <button
+                      className="review-btn"
+                      onClick={() => openReviewModal(booking)}
+                    >
+                      {existingReviewId ? "Edit Review" : "Add Review"}
+                    </button>
+                  )}
                 </div>
-              </div>
+             
+                </div>
             ))}
         </div>
       )}
       {/* Review Submission Modal */}
       <Modal
-        title="Add Review"
+        title={existingReviewId ? "Edit Review" : "Add Review"}
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={[
@@ -146,7 +187,7 @@ function MyBookingScreen() {
             Cancel
           </Button>,
           <Button key="submit" type="primary" onClick={handleReviewSubmission}>
-            Submit
+            {existingReviewId ? "Update" : "Submit"}
           </Button>,
         ]}
       >

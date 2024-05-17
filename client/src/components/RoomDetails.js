@@ -1,13 +1,16 @@
+
+
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
+import { FaStar } from 'react-icons/fa';
+import axios from "axios";
+import Room from "./Room"; // Assuming Room is in the same directory
 import "./RoomDetails.css"; // Import the CSS file for styling
-import { FaStar } from 'react-icons/fa'; // Import the star icon from react-icons/fa
 
 const StarRating = ({ rating }) => {
   const stars = Array.from({ length: 5 }, (_, index) => (
     <FaStar key={index} color={index < rating ? "#ffc107" : "#e4e5e9"} />
   ));
-
   return <>{stars}</>;
 };
 
@@ -17,6 +20,7 @@ export default function RoomDetails(props) {
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [sortOrder, setSortOrder] = useState("default");
   const [filterRating, setFilterRating] = useState(0);
+  const [recommendedRooms, setRecommendedRooms] = useState([]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -30,8 +34,20 @@ export default function RoomDetails(props) {
       }
     };
 
+    const fetchRecommendedRooms = async () => {
+      try {
+        const response = await axios.get("/api/rooms/getallrooms");
+        const allRooms = response.data;
+        const filteredRooms = allRooms.filter(r => r.type === room.type && r._id !== room._id);
+        setRecommendedRooms(filteredRooms.slice(0, 3)); // Display only 3 recommended rooms
+      } catch (error) {
+        console.error("Error fetching recommended rooms:", error);
+      }
+    };
+
     fetchReviews();
-  }, [room._id]);
+    fetchRecommendedRooms();
+  }, [room._id, room.type]);
 
   useEffect(() => {
     let filtered = reviews;
@@ -231,6 +247,22 @@ export default function RoomDetails(props) {
             </div>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <h2>Recommended Rooms</h2>
+            <div className="recommended-rooms">
+              {recommendedRooms.length > 0 ? (
+                recommendedRooms.map((recommendedRoom) => (
+                  <Room key={recommendedRoom._id} room={recommendedRoom} />
+                ))
+              ) : (
+                <p>No recommended rooms available.</p>
+              )}
+            </div>
+          </Col>
+        </Row>
+      
+
       </Container>
     </div>
   );

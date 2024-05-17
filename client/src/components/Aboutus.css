@@ -1,0 +1,41 @@
+/* AboutUs.css */
+
+.about-us-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Background color of the page */
+  }
+  
+  .about-us-content {
+    max-width: 800px;
+    padding: 40px;
+    background-color: #ffffff; /* Background color of the content area */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    transform: translateZ(0); /* Trigger GPU acceleration for smoother animation */
+    transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  .about-us-content:hover {
+    transform: translateY(-5px); /* Move the content up slightly on hover */
+  }
+  
+  .about-us-content h2 {
+    color: #ff6b6b; /* Heading color */
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-content p {
+    color: #555555; /* Text color */
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-content p:last-child {
+    margin-bottom: 0; /* Remove bottom margin for the last paragraph */
+  }
+  

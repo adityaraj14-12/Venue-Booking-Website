@@ -1,7 +1,7 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Table, Tag, Space } from "antd";
-
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 
@@ -11,14 +11,21 @@ function AdminUserScreen() {
   const [error, setError] = useState("");
 
   const columns = [
-    { title: "userid", dataIndex: "_id", key: "_id" },
+    {
+      title: "userid",
+      dataIndex: "_id",
+      key: "_id",
+    },
     {
       title: "name",
       dataIndex: "name",
       key: "name",
     },
-    { title: "email", dataIndex: "email", key: "email" },
-
+    {
+      title: "email",
+      dataIndex: "email",
+      key: "email",
+    },
     {
       title: "isAdmin",
       dataIndex: "isAdmin",
@@ -39,7 +46,7 @@ function AdminUserScreen() {
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/users/getallusers")).data;
+      const data = (await axios.get("/api/users/getallusers")).data;
       setUsers(data);
     } catch (error) {
       console.log(error);
@@ -47,6 +54,7 @@ function AdminUserScreen() {
     }
     setLoading(false);
   }
+
   useEffect(() => {
     fetchMyData();
   }, []);

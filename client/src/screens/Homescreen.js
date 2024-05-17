@@ -156,7 +156,8 @@ function Homescreen() {
         <div className="filterContainer filter">
           <div className="row searchFilter">
             <div className="col-md-3">
-              <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+            <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={(current) => current && current < moment().startOf('day')}/>
+
             </div>
             <div className="col-md-5">
               <input

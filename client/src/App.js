@@ -12,6 +12,7 @@ import ResultsPage from "./screens/ResultsPage"; // Import the ResultsPage compo
 import RoomDetails from "./components/RoomDetails";
 import ReviewModal from "./components/ReviewModal"; // Corrected import path
 import ContactUs from './components/ContactUs';
+import AboutUs from './components/AboutUs';
 import "./App.css";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             exact
             component={Bookingscreen}
           />
+          <Route path="/about" exact component={AboutUs} />
           <Route path="/contact" exact component={ContactUs} />
           <Route path="/room/:roomId" render={(props) => <RoomDetails {...props} />} />
           <Route path="/register" exact component={RegisterScreen} />
