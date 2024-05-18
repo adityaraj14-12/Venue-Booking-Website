@@ -186,3 +186,45 @@ ul li {
 .review-text {
   margin-top: 5px;
 }
+/* RoomDetails.css */
+
+.recommended-rooms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.recommended-room {
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+}
+
+.recommended-room-container {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.recommended-room-image {
+  width: 100%;
+  height: 200px; /* Adjust the height as needed */
+  object-fit: cover;
+}
+
+.recommended-room-details {
+  padding: 20px;
+}
+
+.room-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.room-description {
+  font-size: 14px;
+  color: #666;
+}

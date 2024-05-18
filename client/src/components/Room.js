@@ -48,12 +48,13 @@ export default function Room({ room, fromDate, toDate }) {
           <p className="custom-description">{room.description}</p>
         </Modal.Body>
         <Modal.Footer className="custom-footer">
-          <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
-          </Button>
-          <Link to={{ pathname: `/room/${room._id}`, state: { room } }}>
+        <Link to={{ pathname: `/room/${room._id}`, state: { room } }}>
             <Button variant="secondary" className="custom-button">More Details</Button>
           </Link>
+          <Button variant="secondary" className="custom-button" onClick={() => setShow(false)}>
+            Close
+          </Button>
+          
         </Modal.Footer>
       </Modal>
     </div>

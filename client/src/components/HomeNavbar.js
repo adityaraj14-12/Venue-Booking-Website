@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import './navbar.css'
 function HomeNavbar() {
   // Retrieve user from localStorage
   const user = JSON.parse(localStorage.getItem("currentUser"));

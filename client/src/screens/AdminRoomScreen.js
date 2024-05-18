@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Tag, Space } from "antd";
-
+import { Table } from "antd";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import "./AdminRoomScreen.css";
 
 function AdminRoomScreen() {
   const [rooms, setRooms] = useState([]);
@@ -11,20 +11,12 @@ function AdminRoomScreen() {
   const [error, setError] = useState("");
 
   const columns = [
-    {
-      title: "roomid",
-      dataIndex: "_id",
-      key: "_id",
-    },
-    {
-      title: "name",
-      dataIndex: "name",
-      key: "name",
-    },
-    { title: "maxcount", dataIndex: "maxcount", key: "maxcount" },
-    { title: "phonenumber", dataIndex: "phonenumber", key: "phonenumber" },
-    { title: "rentperday", dataIndex: "rentperday", key: "rentperday" },
-    { title: "type", dataIndex: "type", key: "type" },
+    { title: "Room ID", dataIndex: "_id", key: "_id" },
+    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Max Count", dataIndex: "maxcount", key: "maxcount" },
+    { title: "Phone Number", dataIndex: "phonenumber", key: "phonenumber" },
+    { title: "Rent Per Day", dataIndex: "rentperday", key: "rentperday" },
+    { title: "Type", dataIndex: "type", key: "type" },
   ];
 
   async function fetchMyData() {
@@ -47,12 +39,14 @@ function AdminRoomScreen() {
   return (
     <div className="row">
       {loading ? (
-        <Loader></Loader>
-      ) : error.length > 0 ? (
-        <Error msg={error}></Error>
+        <div className="loader">
+          <Loader />
+        </div>
+      ) : error ? (
+        <div className="error">{error}</div>
       ) : (
         <>
-          <div className="col md-12">
+          <div className="col-md-12">
             <button className="btn btn-success" onClick={fetchMyData}>
               Refresh
             </button>

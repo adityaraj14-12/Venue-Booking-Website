@@ -1,1 +1,82 @@
 
+  .ant-form {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .ant-form-item-label {
+    font-weight: 600;
+  }
+  
+  .ant-form-item-control-input {
+    border-radius: 8px;
+  }
+  
+  /* Button styles */
+  .ant-btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .ant-btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
+  }
+  
+  .ant-btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: translateY(-2px);
+  }
+  
+  .ant-btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #ffffff;
+  }
+  
+  .ant-btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+  }
+  
+  /* Input styles */
+  .ant-input {
+    border-radius: 8px;
+  }
+  
+  /* Select styles */
+  .ant-select-selector {
+    border-radius: 8px;
+  }
+  
+  /* Error message styles */
+  .error-msg {
+    color: #ff0000;
+    font-weight: 600;
+  }
+  
+  /* Loader styles */
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  
+  /* Error component styles */
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    color: #ff0000;
+    font-weight: 600;
+  }
+  

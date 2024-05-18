@@ -26,7 +26,8 @@
   
   .form-control {
     width: 100%;
-    padding: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 6px;

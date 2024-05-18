@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
 import { FaStar } from 'react-icons/fa';
@@ -47,6 +45,9 @@ export default function RoomDetails(props) {
 
     fetchReviews();
     fetchRecommendedRooms();
+
+    // Scroll to the top when component mounts
+    window.scrollTo(0, 0);
   }, [room._id, room.type]);
 
   useEffect(() => {
@@ -78,6 +79,8 @@ export default function RoomDetails(props) {
   const averageRating = reviews.length
     ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)
     : 0;
+
+
 
   return (
     <div className="room-details-container">
@@ -248,20 +251,28 @@ export default function RoomDetails(props) {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <h2>Recommended Rooms</h2>
-            <div className="recommended-rooms">
-              {recommendedRooms.length > 0 ? (
-                recommendedRooms.map((recommendedRoom) => (
-                  <Room key={recommendedRoom._id} room={recommendedRoom} />
-                ))
-              ) : (
-                <p>No recommended rooms available.</p>
-              )}
+  <Col>
+    <h2>Recommended Rooms</h2>
+    <div className="recommended-rooms">
+      {recommendedRooms.length > 0 ? (
+        recommendedRooms.map((recommendedRoom) => (
+          <div key={recommendedRoom._id} className="recommended-room">
+            <div className="recommended-room-container">
+              
+              <div className="recommended-room-details">
+                <Room key={recommendedRoom._id} room={recommendedRoom} />
+                <p className="room-description">{recommendedRoom.description}</p>
+              </div>
             </div>
-          </Col>
-        </Row>
-      
+          </div>
+        ))
+      ) : (
+        <p>No recommended rooms available.</p>
+      )}
+    </div>
+  </Col>
+</Row>
+
 
       </Container>
     </div>

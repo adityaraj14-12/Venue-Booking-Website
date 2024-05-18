@@ -3,6 +3,8 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import "./LoginScreen.css";
+import { Link } from "react-router-dom"; // Import Link for navigation
+
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -47,6 +49,8 @@ function LoginScreen() {
         <button className="btn btn-primary" onClick={login} disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
+        <p>If you haven't account <Link to="/register">Register</Link></p>
+
       </div>
     </div>
   );

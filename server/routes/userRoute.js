@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Account Verification",
-      html: `Please click <a href="http://localhost:5000/api/users/verify/${token}">here</a> to verify your account.`,
+      html: `Please click <a href="https://backend-kduz.onrender.com/api/users/verify/${token}">here</a> to verify your account.`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

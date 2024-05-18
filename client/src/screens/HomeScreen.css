@@ -1,4 +1,7 @@
-
+.form-control{
+  padding: 0;
+  width: 100%;
+}
 
 .cardhome {
     transition: transform 0.3s ease-in-out;
