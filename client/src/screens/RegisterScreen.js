@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Success from "../components/Success";
 import "./Registerscreens.css";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 function RegisterScreen() {
   const [name, setName] = useState("");
@@ -76,6 +77,8 @@ function RegisterScreen() {
           <button className="btn btn-primary mt-3" onClick={register} disabled={loading}>
             {loading ? "Registering..." : "Register"}
           </button>
+          <p>If you haven't account <Link to="/login">Login</Link></p>
+
         </div>
       </div>
     );
