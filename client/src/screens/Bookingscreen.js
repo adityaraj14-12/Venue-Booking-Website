@@ -13,8 +13,23 @@ function Bookingscreen({ match }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [room, setRoom] = useState({});
+  const [extraServices, setExtraServices] = useState([]);
+  const [selectedPackage, setSelectedPackage] = useState("none");
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalDays, setTotalDays] = useState(0);
+  const [roomRent, setRoomRent] = useState(0);
+
+  const serviceCosts = {
+    DJ: 2000,
+    catering: 8000,
+    decoration: 4500,
+  };
+
+  const packageCosts = {
+    gold: 5000,
+    silver: 3000,
+    diamond: 7000,
+  };
 
   const history = useHistory();
   const redirecttoHome = () => {
@@ -24,7 +39,6 @@ function Bookingscreen({ match }) {
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
   const todate = moment(match.params.todate, "DD-MM-YYYY");
-
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -39,9 +53,30 @@ function Bookingscreen({ match }) {
     if (room.rentperday) {
       const totaldays = moment.duration(moment(todate, "DD-MM-YYYY").diff(moment(fromdate, "DD-MM-YYYY"))).asDays() + 1;
       setTotalDays(totaldays);
-      setTotalAmount(totaldays * room.rentperday);
+      setRoomRent(totaldays * room.rentperday);
+      calculateTotalAmount(totaldays * room.rentperday, extraServices, selectedPackage);
     }
-  }, [room, fromdate, todate]);
+  }, [room, fromdate, todate, extraServices, selectedPackage]);
+
+  const calculateTotalAmount = (baseAmount, services, pkg) => {
+    const servicesCost = services.reduce((total, service) => total + serviceCosts[service], 0);
+    const pkgCost = pkg !== "none" ? packageCosts[pkg] : 0;
+    setTotalAmount(baseAmount + servicesCost + pkgCost);
+  };
+
+  const handleExtraServiceChange = (service) => {
+    let updatedServices = [...extraServices];
+    if (updatedServices.includes(service)) {
+      updatedServices = updatedServices.filter((item) => item !== service);
+    } else {
+      updatedServices.push(service);
+    }
+    setExtraServices(updatedServices);
+  };
+
+  const handlePackageChange = (pkg) => {
+    setSelectedPackage(pkg);
+  };
 
   const fetchRoom = async () => {
     try {
@@ -65,6 +100,8 @@ function Bookingscreen({ match }) {
       totalAmount,
       totaldays: totalDays,
       token,
+      extraservices: extraServices,
+      selectedPackage,
     };
 
     try {
@@ -102,39 +139,90 @@ function Bookingscreen({ match }) {
           </div>
           <div className="payment-details">
             <h2>Amount</h2>
-            <div className="amtMain">
-              <div className="subAmt1">
-                <p><strong >Total Days:</strong> </p>
-                <hr className="makeLine" />
-                <p><strong>Rent per day:</strong> </p>
-                <hr className="makeLine" />
-                <p><strong>Total Amount:</strong> </p>
-                <hr className="makeLine" />
+            <div className="amount-details">
+              <div className="amount-section">
+                <p><strong>Total Days:</strong></p>
+                <hr className="amount-line" />
+                <p><strong>Rent per day:</strong></p>
+                <hr className="amount-line" />
+                <p><strong>Extra Services:</strong></p>
+                <hr className="amount-line" />
+                <p><strong>Package:</strong></p>
+                <hr className="amount-line" />
+                <p><strong>Total Amount:</strong></p>
+                <hr className="amount-line" />
               </div>
-              <div className="subAmt2">
+              <div className="amount-section">
                 <p>{totalDays}</p>
                 <hr />
                 <p>{room.rentperday}</p>
+                <hr />
+                <p>{extraServices.length > 0 ? extraServices.map(service => `${service} (Rs. ${serviceCosts[service]})`).join(', ') : "None"}</p>
+                <hr />
+                <p>{selectedPackage !== "none" ? `${selectedPackage} (Rs. ${packageCosts[selectedPackage]})` : "None"}</p>
                 <hr />
                 <p>{totalAmount}</p>
                 <hr />
               </div>
             </div>
+            <div className="extras">
+              <h3>Extra Services</h3>
+              <div>
+                <label>
+                  <input type="checkbox" value="DJ" onChange={() => handleExtraServiceChange("DJ")} />
+                  DJ System (Rs.2000)
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input type="checkbox" value="catering" onChange={() => handleExtraServiceChange("catering")} />
+                  Catering  (Rs.8000)
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input type="checkbox" value="decoration" onChange={() => handleExtraServiceChange("decoration")} />
+                  Decoration (Rs.4500)
+                </label>
+              </div>
+            </div>
+            <div className="packages">
+              <h3>Packages</h3>
+              <div>
+                <label>
+                  <input type="radio" name="package" value="diamond" onChange={() => handlePackageChange("diamond")} />
+                  Diamond Package (Rs.7000)
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input type="radio" name="package" value="gold" onChange={() => handlePackageChange("gold")} />
+                  Golden Package (Rs5000)
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input type="radio" name="package" value="silver" onChange={() => handlePackageChange("silver")} />
+                  Silver Package (Rs.3000)
+                </label>
+              </div>
+              
+            </div>
             <StripeCheckout
               amount={totalAmount * 100}
-              currency="USD"
+              currency="INR"
               token={onToken}
               stripeKey="pk_test_51P7ZnvJVkX5vtZzarkv6mKkHI17DW1BVhycTaXLK5lXuKcIdfTCBOjvhFbiRjP7XHiXctd1wAueZ8vKkXkkw74dZ00IE6ptG4h"
               className="stripe-button"
             >
-              <button className="payButton btn-primary">Pay Now</button>
+              <button className="payButton">Pay Now</button>
             </StripeCheckout>
             <button className="home-button" onClick={redirecttoHome}>Home</button>
           </div>
         </div>
       )}
     </main>
-  );
+  );  
 }
 
 export default Bookingscreen;

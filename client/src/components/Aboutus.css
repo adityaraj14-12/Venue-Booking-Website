@@ -1,41 +1,51 @@
-/* AboutUs.css */
+/* Aboutus.css */
 
+/* Container styles */
 .about-us-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* Background color of the page */
-  }
-  
-  .about-us-content {
-    max-width: 800px;
-    padding: 40px;
-    background-color: #ffffff; /* Background color of the content area */
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
-    transform: translateZ(0); /* Trigger GPU acceleration for smoother animation */
-    transition: transform 0.3s ease; /* Smooth transition for hover effect */
-  }
-  
-  .about-us-content:hover {
-    transform: translateY(-5px); /* Move the content up slightly on hover */
-  }
-  
-  .about-us-content h2 {
-    color: #ff6b6b; /* Heading color */
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  .about-us-content p {
-    color: #555555; /* Text color */
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-  
-  .about-us-content p:last-child {
-    margin-bottom: 0; /* Remove bottom margin for the last paragraph */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #d9a4a45a; /* Light gray background */
+}
+
+/* Content styles */
+.about-us-content {
+  max-width: 800px;
+  padding: 50px;
+  text-align: center;
+}
+
+.about-us-content h2 {
+  font-size: 2.5rem;
+  color: #21448a; /* Dark gray color */
+  margin-bottom: 20px;
+}
+
+.about-us-content p {
+  font-size: 1.2rem;
+  color: #555; /* Gray color */
+  margin-bottom: 20px;
+}
+
+/* Package descriptions */
+.package-descriptions {
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #fff; /* White background */
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+}
+
+.package-descriptions h3 {
+  font-size: 1.8rem;
+  color: #a93c3c; /* Dark gray color */
+  margin-bottom: 15px;
+}
+
+.package-descriptions p {
+  font-size: 1.1rem;
+  color: #666; /* Medium gray color */
+  line-height: 1.6;
+  margin-bottom: 20px;
+}

@@ -49,25 +49,23 @@ router.post("/getbookingbyuserid", async (req, res) => {
     return res.status(400).json({ message: error });
   }
 });
-
 router.post("/bookroom", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, token } =
-      req.body;
+    const { room, userid, fromdate, todate, totalAmount, totaldays, token, extraservices, selectedPackage } = req.body;
 
     try {
-      //create customer
+      // create customer
       const customer = await stripe.customers.create({
         email: token.email,
         source: token.id,
       });
 
-      //charge payment
+      // charge payment
       const payment = await stripe.charges.create(
         {
-          amount: totalAmount * 100,
+          amount: totalAmount * 100, // totalAmount now includes all costs
           customer: customer.id,
-          currency: "USD",
+          currency: "INR",
           receipt_email: token.email,
         },
         {
@@ -75,7 +73,7 @@ router.post("/bookroom", async (req, res) => {
         }
       );
 
-      //Payment Success
+      // Payment Success
       if (payment) {
         try {
           const newBooking = new Booking({
@@ -87,6 +85,8 @@ router.post("/bookroom", async (req, res) => {
             totalamount: totalAmount,
             totaldays,
             transactionid: uuidv4(),
+            extraservices,
+            package: selectedPackage,
           });
 
           const booking = await newBooking.save();

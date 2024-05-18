@@ -9,14 +9,10 @@ const bookingSchema = mongoose.Schema(
     userid: { type: String, required: true },
     fromdate: { type: String, required: true },
     todate: { type: String, required: true },
-    totalamount: {
-      type: Number,
-      required: true,
-    },
-    totaldays: {
-      type: Number,
-      required: true,
-    },
+    totalamount: { type: Number, required: true },
+    totaldays: { type: Number, required: true },
+    extraservices: { type: [String], default: [] },
+    package: { type: String, default: "none" },
   },
   { timestamps: true }
 );
