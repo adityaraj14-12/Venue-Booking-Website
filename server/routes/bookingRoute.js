@@ -1,6 +1,6 @@
 const express = require("express");
 const moment = require("moment");
-const stripe = require("stripe")("sk_test_51P7ZnvJVkX5vtZzaTJxGnsDuup2h77HnzmRCA2keeOFiJ5pSl1k9Rto0FqXVM5IWv0Q4fF94z23wnMHLaK5081EV0063ETSeyQ"); //
+const stripe = require("stripe")(process.env.SECRET_KEY); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
 
 const router = express.Router();
